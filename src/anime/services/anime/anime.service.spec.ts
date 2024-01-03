@@ -1,13 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AnimeService } from './anime.service';
 import { AnimeDTO } from '../../dto/anime.dto';
+import { AnimeModule } from '../../../anime/anime.module';
+import { AppModule } from '../../../app.module';
 
 describe('AnimeService', () => {
   let service: AnimeService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AnimeService, AnimeDTO],
+      imports: [AnimeModule, AppModule],
+      providers: [{ provide: AnimeService, useValue: {} }, AnimeDTO],
     }).compile();
 
     service = module.get<AnimeService>(AnimeService);
